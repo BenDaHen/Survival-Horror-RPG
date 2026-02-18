@@ -4,4 +4,6 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="Survival Horror RPG/Survival Horror RPG.vcxproj" />
+  <Project Path="SurvivalHorrorRPGLib/SurvivalHorrorRPGLib.vcxproj" />
+  <Project Path="SurvivalHorrorRPGTests/SurvivalHorrorRPGTests.vcxproj" />
 </Solution>

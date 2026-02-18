@@ -1,6 +1,7 @@
 //HealingItem.cpp
 
-//Includes
+//Includes (Note: pch.h comes first for every .cpp file, place common includes in pch.h)
+#include "pch.h"
 #include "HealingItem.h"
 
 HealingItem::HealingItem(string newName, int newHealValue) {
