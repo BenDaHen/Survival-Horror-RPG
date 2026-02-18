@@ -2,11 +2,6 @@
 #ifndef HEALINGITEM_H
 #define HEALINGITEM_H
 
-//Includes
-#include <iostream>
-#include <string>
-using namespace std;
-
 //HealingItem Class
 class HealingItem {
 	//Members
