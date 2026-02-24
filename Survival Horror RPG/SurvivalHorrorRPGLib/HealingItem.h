@@ -13,7 +13,7 @@ private:
 public:
 	HealingItem(string newName, int newHealValue); //Healing Item constructor
 	string getName(); //Get the name of the item
-	int useHeal(); //Use the specified healing item
+	int getHealValue(); //Get the heal value of the item
 }; //HealingItem
 
 #endif // HEALINGITEM_H

@@ -13,6 +13,6 @@ string HealingItem::getName() {
 	return name;
 } //getName
 
-int HealingItem::useHeal() {
+int HealingItem::getHealValue() {
 	return healValue;
 } //useHeal

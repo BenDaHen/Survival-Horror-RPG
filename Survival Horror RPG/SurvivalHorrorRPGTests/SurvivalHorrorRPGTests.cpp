@@ -17,5 +17,17 @@ namespace SurvivalHorrorRPGTests
 
 			Assert::AreEqual(expected, actual);
 		}//TestHealingItemName
+
+		TEST_METHOD(TestHealingItemValue)
+		{
+			HealingItem herb = HealingItem("Herb", 1);
+
+			int expected = 1;
+			int actual = herb.getHealValue();
+
+			Assert::AreEqual(expected, actual);
+		}//TestHealingItemValue
+
 	}; //HealingItemTests
+
 } //SurvivalHorrorRPGTests
