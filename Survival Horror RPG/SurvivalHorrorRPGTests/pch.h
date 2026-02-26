@@ -15,5 +15,6 @@ using namespace std;
 
 #include "HealingItem.h"
 #include "Weapon.h"
+#include "KeyItem.h"
 
 #endif //PCH_H

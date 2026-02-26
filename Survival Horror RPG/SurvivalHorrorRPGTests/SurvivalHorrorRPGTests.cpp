@@ -92,4 +92,24 @@ namespace SurvivalHorrorRPGTests
 		}//TestWeaponAmmoChange
 	};//WeaponTests
 
+	TEST_CLASS(KeyItemTests) {
+		TEST_METHOD(TestKeyItemName) {
+			KeyItem diamondKey = KeyItem("Diamond Key", "Diamond Key Door");
+
+			string expected = "Diamond Key";
+			string actual = diamondKey.getName();
+
+			Assert::AreEqual(expected, actual);
+		}//TestKeyItemName
+
+		TEST_METHOD(TestKeyItemLocation) {
+			KeyItem diamondKey = KeyItem("Diamond Key", "Diamond Key Door");
+
+			string expected = "Diamond Key Door";
+			string actual = diamondKey.getInteractLocation();
+
+			Assert::AreEqual(expected, actual);
+		}
+	};//KeyItemTests
+
 } //SurvivalHorrorRPGTests
