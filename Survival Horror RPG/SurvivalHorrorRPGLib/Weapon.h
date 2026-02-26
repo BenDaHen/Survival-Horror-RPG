@@ -11,9 +11,13 @@ private:
 	string currentAmmo; //The type of ammo currently in the weapon
 
 public:
+	Weapon(string newName, int newDamage, int newUpgradeTracker = 1, string newCurrentAmmo = "None"); //Constructor
 	string getName(); //Get the name of the weapon
 	int getDamage(); //Get the damage value of the weapon
-	void updateTracker(); //Update the upgrade tracker
+	int getUpgradeTracker(); //Get the current value of the upgrade tracker
+	void updateTracker(); //Increment the upgrade tracker
+	string getAmmo(); //Get the current ammo type
+	void changeAmmo(string newAmmo); //Change the current ammo for the weapon
 	//Ammo class?
 }; //Weapon
 
