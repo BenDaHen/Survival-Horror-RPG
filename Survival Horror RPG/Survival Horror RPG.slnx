@@ -1,9 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="Survival Horror RPG/Survival Horror RPG.vcxproj" Id="520c066d-f2a3-47ad-a0e6-a3f7a72ad017" />
-  <Project Path="SurvivalHorrorRPGLib/SurvivalHorrorRPGLib.vcxproj" Id="7181aa9e-45fb-4239-af8a-f331c7ffaf28" />
-  <Project Path="SurvivalHorrorRPGTests/SurvivalHorrorRPGTests.vcxproj" />
-</Solution>
