@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Survival-Horror-RPG.vcxproj" />
+  <Project Path="Survival-Horror-RPG.vcxproj" Id="297f81f2-f2bb-46fe-8a06-0eb276f0ac6d" />
 </Solution>
