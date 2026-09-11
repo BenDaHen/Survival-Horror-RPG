@@ -31,6 +31,9 @@
 #include <utility> // declval, forward, move, pair, swap
 #include <vector> // vector
 
+//Supress warnings
+#pragma warning(push, 0)
+
 // #include <nlohmann/adl_serializer.hpp>
 //     __ _____ _____ _____
 //  __|  |   __|     |   | |  JSON for Modern C++
