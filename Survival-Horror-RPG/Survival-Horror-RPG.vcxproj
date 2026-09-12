@@ -145,12 +145,16 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="loadGame.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="newGame.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="loadGame.h" />
     <ClInclude Include="newGame.h" />
     <ClInclude Include="Player.h" />

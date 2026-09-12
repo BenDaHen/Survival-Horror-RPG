@@ -2,8 +2,10 @@
 #include "newGame.h"
 #include "loadGame.h"
 #include "Player.h"
+#include "Item.h"
+#include "Inventory.h"
 
-int main() {
+void titleScreen() {
 	//Title Screen starts here
 	std::cout << "SURVIVAL HORROR RPG\n\n";
 	std::cout << "(1) NEW GAME\n";
@@ -16,14 +18,34 @@ int main() {
 	if (choice == 1) {
 		newGame();
 	}
-	else if(choice == 2) {
+	else if (choice == 2) {
 		loadGame();
 	}
 
 	//Create a player
-	Player player { "Chris", 50, 50, 100, 5, 0, 150 };
+	Player player{ "Chris", 50, 50, 100, 5, 0, 150 };
 
 	std::cout << "Welcome to the game " << player.getName();
+}
+
+int main() {
+	Item test{ "Herb" };
+
+	KeyItem keyTest{ "Armor Key", "Some Room" };
+
+	Weapon weapon{ "Pistol", 10 };
+
+	std::cout << "The " << keyTest.getName() << " is used in " << keyTest.getUseLocation();
+
+	std::cout << "The " << weapon.getName() << " does " << weapon.getDamage() << " damage";
+
+	Inventory playerInventory{"Player's Inventory"};
+
+	playerInventory.add(test);
+	playerInventory.add(keyTest);
+	playerInventory.add(weapon);
+
+	std::cout << playerInventory;
 
 	return 0;
 }
