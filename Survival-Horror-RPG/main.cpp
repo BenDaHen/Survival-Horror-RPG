@@ -42,10 +42,20 @@ int main() {
 	Inventory playerInventory{"Player's Inventory"};
 
 	playerInventory.add(test);
+	playerInventory.add(test);
+	playerInventory.add(test);
 	playerInventory.add(keyTest);
 	playerInventory.add(weapon);
 
 	std::cout << playerInventory;
+
+	std::cout << "Length: " << playerInventory.getLength() << '\n' << "Capacity: " << playerInventory.getCapacity() << '\n';
+
+	playerInventory.remove(2);
+
+	std::cout << playerInventory;
+
+	std::cout << "Length: " << playerInventory.getLength() << '\n' << "Capacity: " << playerInventory.getCapacity() << '\n';
 
 	return 0;
 }

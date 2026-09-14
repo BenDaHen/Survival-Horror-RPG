@@ -16,15 +16,22 @@ public:
 	//Constructor
 	Inventory(std::string_view name);
 
-	//Add something to the inventory
-	void add(const Item& item);
+	void add(const Item& item); //Add something to the inventory
+
+	void remove(const std::size_t index); //Remove something from the inventory
+
+	std::size_t getLength() const { return m_inventory.size(); }
+	std::size_t getCapacity() const { return m_inventory.capacity(); }
 
 	//Print out the inventory
 	friend std::ostream& operator<<(std::ostream& out, const Inventory& inventory) {
 		out << "Printing the inventory.\n";
 
-		for (auto& item : inventory.m_inventory) {
-			out << "Item: " << item.getName() << '\n';
+		int index{1};
+
+		for (const auto& item : inventory.m_inventory) {
+			out << "(" << index << ") Item: " << item.getName() << '\n';
+			++index;
 		}
 
 		return out;
