@@ -1,11 +1,12 @@
 #include "Inventory.h"
 
 //Constructor
-Inventory::Inventory(std::string_view name) :
+Inventory::Inventory(std::string_view name, const std::size_t capacity) :
 	m_name{name}
 {
-	//Set the capacity to 8 (capacity will go up to 10 eventually)
-	m_inventory.reserve(8);
+	//Set the capacity to 8 for player inventory, item box will be larger
+	//Player inventory capacity will be upgraded later
+	m_inventory.reserve(capacity);
 }
 
 void Inventory::add(const Item& item) {

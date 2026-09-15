@@ -16,7 +16,7 @@ private:
 
 public:
 	//Constructor
-	Inventory(std::string_view name);
+	Inventory(std::string_view name, const std::size_t capacity);
 
 	void add(const Item& item); //Add something to the inventory
 
@@ -40,6 +40,8 @@ public:
 			out << "(" << index << ") Item: " << item.getName() << '\n';
 			++index;
 		}
+
+		out << index - 1 << "/" << inventory.m_inventory.capacity() << '\n';
 
 		return out;
 	}

@@ -39,9 +39,9 @@ int main() {
 
 	std::cout << "The " << weapon.getName() << " does " << weapon.getDamage() << " damage";
 
-	Inventory playerInventory{"Player's Inventory"};
+	Inventory playerInventory{"Player's Inventory", 8};
 
-	Inventory itemBox{ "Item Box" };
+	Inventory itemBox{ "Item Box", 20 };
 
 	playerInventory.add(test);
 	playerInventory.add(test);
