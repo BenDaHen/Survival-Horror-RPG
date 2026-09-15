@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <utility> //For std::move
+#include <optional> //For std::optional
 #include "Item.h"
 
 class Inventory {
@@ -18,14 +20,19 @@ public:
 
 	void add(const Item& item); //Add something to the inventory
 
-	void remove(const std::size_t index); //Remove something from the inventory
+	Item remove(const std::size_t slotNumber); //Remove something from the inventory
 
+	void transfer(const std::size_t slotNumber, Inventory& destination); //Transfer one item to another inventory
+
+	std::string_view getName() const { return m_name; }
 	std::size_t getLength() const { return m_inventory.size(); }
 	std::size_t getCapacity() const { return m_inventory.capacity(); }
 
+	void upgradeInventory() { m_inventory.reserve(10); } //Upgrade the inventory to 10 slots
+
 	//Print out the inventory
 	friend std::ostream& operator<<(std::ostream& out, const Inventory& inventory) {
-		out << "Printing the inventory.\n";
+		out << "Printing " << inventory.m_name << '\n';
 
 		int index{1};
 

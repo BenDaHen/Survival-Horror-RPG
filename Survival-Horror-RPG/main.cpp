@@ -41,6 +41,8 @@ int main() {
 
 	Inventory playerInventory{"Player's Inventory"};
 
+	Inventory itemBox{ "Item Box" };
+
 	playerInventory.add(test);
 	playerInventory.add(test);
 	playerInventory.add(test);
@@ -56,6 +58,12 @@ int main() {
 	std::cout << playerInventory;
 
 	std::cout << "Length: " << playerInventory.getLength() << '\n' << "Capacity: " << playerInventory.getCapacity() << '\n';
+
+	playerInventory.transfer(2, itemBox);
+	playerInventory.transfer(1, itemBox);
+
+	std::cout << playerInventory;
+	std::cout << itemBox;
 
 	return 0;
 }
