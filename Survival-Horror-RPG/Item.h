@@ -3,6 +3,8 @@
 
 #include <string>
 #include <string_view>
+#include <array>
+#include <iostream>
 
 //Item class
 class Item {
@@ -16,6 +18,7 @@ public:
 	//Constructor
 	Item(const std::string_view name);
 
+	std::string_view getItem() const { return m_name; }
 	std::string_view getName() const { return m_name; }
 };
 
@@ -35,12 +38,32 @@ public:
 class Weapon final : public Item {
 private:
 	int m_damage{};
+	int m_level{1};
+	int m_ammoCount{};
+	int m_maxAmmoCount{};
 
 public:
 	//Constructor
-	Weapon(const std::string_view name, const int damage);
+	Weapon(const std::string_view name, const int ammoCount, const int maxAmmoCount, const int damage);
 
 	int getDamage() const { return m_damage; }
+	int getLevel() const { return m_level; }
+	int getAmmo() const { return m_ammoCount; }
+	int getMaxAmmo() const { return m_maxAmmoCount; }
+};
+
+//Ammo (Item) class
+class Ammo final : public Item {
+private:
+	int m_ammoCount{};
+	int m_maxAmmoCount{};
+	std::array<std::string_view, 1> m_compatibleWeapons{};
+
+public:
+	//Constructor
+	Ammo(const std::string_view name, const int ammoCount, const int maxAmmoCount, const std::array<std::string_view, 1> compatibleWeapons);
+
+	void printCompatibleWeapons() const;
 };
 
 #endif

@@ -26,7 +26,7 @@ Item Inventory::remove(const std::size_t slotNumber) {
 	if (slotNumber >= 1 && slotNumber <= m_inventory.size()) {
 		std::size_t index{ slotNumber - 1 };
 
-		std::cout << "Removing the item at slot #" << slotNumber << "(" << m_inventory[index].getName() << ")\n";
+		std::cout << "Removing the item at slot #" << slotNumber << " (" << m_inventory[index].getName() << ")\n";
 
 		Item removed{ std::move(m_inventory[index]) };
 

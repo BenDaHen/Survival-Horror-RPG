@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Item.h"
 #include "Inventory.h"
+#include "ItemData.h"
 
 void titleScreen() {
 	//Title Screen starts here
@@ -29,11 +30,14 @@ void titleScreen() {
 }
 
 int main() {
-	Item test{ "Herb" };
+	Item test{ Item{itemData[green_herb]} };
 
-	KeyItem keyTest{ "Armor Key", "Some Room" };
+	KeyItem keyTest{ KeyItem{keyItemData[armor_key]} };
 
-	Weapon weapon{ "Pistol", 10 };
+	Weapon weapon{ Weapon{weaponData[handgun]} };
+
+	Ammo handgunAmmo{ Ammo{ammoData[handgun_bullets]} };
+	Ammo shotgunAmmo{ Ammo{ammoData[shotgun_shells]} };
 
 	std::cout << "The " << keyTest.getName() << " is used in " << keyTest.getUseLocation();
 
@@ -48,6 +52,8 @@ int main() {
 	playerInventory.add(test);
 	playerInventory.add(keyTest);
 	playerInventory.add(weapon);
+	playerInventory.add(handgunAmmo);
+	playerInventory.add(shotgunAmmo);
 
 	std::cout << playerInventory;
 
@@ -64,6 +70,9 @@ int main() {
 
 	std::cout << playerInventory;
 	std::cout << itemBox;
+
+	handgunAmmo.printCompatibleWeapons();
+	shotgunAmmo.printCompatibleWeapons();
 
 	return 0;
 }

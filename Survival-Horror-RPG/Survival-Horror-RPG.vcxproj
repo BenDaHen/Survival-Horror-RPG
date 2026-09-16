@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemData.h" />
     <ClCompile Include="loadGame.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="newGame.cpp" />
