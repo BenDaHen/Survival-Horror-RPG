@@ -6,7 +6,6 @@
 #include <string>
 #include <string_view>
 #include <utility> //For std::move
-#include <optional> //For std::optional
 #include "Item.h"
 
 class Inventory {
@@ -30,21 +29,8 @@ public:
 
 	void upgradeInventory() { m_inventory.reserve(10); } //Upgrade the inventory to 10 slots
 
-	//Print out the inventory
-	friend std::ostream& operator<<(std::ostream& out, const Inventory& inventory) {
-		out << "Printing " << inventory.m_name << '\n';
-
-		int index{1};
-
-		for (const auto& item : inventory.m_inventory) {
-			out << "(" << index << ") Item: " << item.getName() << '\n';
-			++index;
-		}
-
-		out << index - 1 << "/" << inventory.m_inventory.capacity() << '\n';
-
-		return out;
-	}
+	//Overload the output operator
+	friend std::ostream& operator<<(std::ostream& out, const Inventory& inventory);
 };
 
 #endif

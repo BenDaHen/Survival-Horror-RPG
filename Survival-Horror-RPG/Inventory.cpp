@@ -51,4 +51,20 @@ void Inventory::transfer(const std::size_t slotNumber, Inventory& destination) {
 	std::cout << "Transfering the " << toTransfer.getName() << " from " << m_name << " to " << destination.getName() << '\n';
 
 	destination.add(toTransfer);
-}
+}//Inventory::transfer
+
+//Print out the inventory
+std::ostream& operator<<(std::ostream& out, const Inventory& inventory) {
+	out << "Printing " << inventory.m_name << '\n';
+
+	int index{ 1 };
+
+	for (const auto& item : inventory.m_inventory) {
+		out << "(" << index << ") " << item << '\n';
+		++index;
+	}
+
+	out << index - 1 << "/" << inventory.m_inventory.capacity() << '\n';
+
+	return out;
+}//Inventory::operator<<

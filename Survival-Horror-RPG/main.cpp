@@ -74,5 +74,10 @@ int main() {
 	handgunAmmo.printCompatibleWeapons();
 	shotgunAmmo.printCompatibleWeapons();
 
+	std::cout << test;
+	std::cout << keyTest;
+	std::cout << weapon;
+	std::cout << handgunAmmo;
+
 	return 0;
 }

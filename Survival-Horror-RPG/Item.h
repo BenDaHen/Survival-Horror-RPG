@@ -18,8 +18,10 @@ public:
 	//Constructor
 	Item(const std::string_view name);
 
-	std::string_view getItem() const { return m_name; }
-	std::string_view getName() const { return m_name; }
+	std::string_view getName() const { return m_name; } 
+
+	//Overload output operator
+	friend std::ostream& operator<<(std::ostream& out, Item& item);
 };
 
 //Key Item class (derives from Item)
@@ -32,6 +34,9 @@ public:
 	KeyItem(const std::string_view name, const std::string_view useLocation);
 
 	std::string_view getUseLocation() const { return m_useLocation; }
+
+	//Overload output operator
+	friend std::ostream& operator<<(std::ostream& out, KeyItem& item);
 };
 
 //Weapon (Item) class 
@@ -50,6 +55,9 @@ public:
 	int getLevel() const { return m_level; }
 	int getAmmo() const { return m_ammoCount; }
 	int getMaxAmmo() const { return m_maxAmmoCount; }
+
+	//Overload output operator
+	friend std::ostream& operator<<(std::ostream& out, Weapon& item);
 };
 
 //Ammo (Item) class
@@ -64,6 +72,9 @@ public:
 	Ammo(const std::string_view name, const int ammoCount, const int maxAmmoCount, const std::array<std::string_view, 1> compatibleWeapons);
 
 	void printCompatibleWeapons() const;
+
+	//Overload output operator
+	friend std::ostream& operator<<(std::ostream& out, Ammo& item);
 };
 
 #endif
