@@ -11,13 +11,13 @@
 class Inventory {
 private:
 	std::string m_name{};
-	std::vector<Item> m_inventory{}; //Create an empty vector of Items
+	std::vector<Item*> m_inventory{}; //Create an empty vector of pointers to Items
 
 public:
 	//Constructor
 	Inventory(std::string_view name, const std::size_t capacity);
 
-	void add(const Item& item); //Add something to the inventory
+	void add(Item& item); //Add something to the inventory
 
 	Item remove(const std::size_t slotNumber); //Remove something from the inventory
 
@@ -29,8 +29,7 @@ public:
 
 	void upgradeInventory() { m_inventory.reserve(10); } //Upgrade the inventory to 10 slots
 
-	//Overload the output operator
-	friend std::ostream& operator<<(std::ostream& out, const Inventory& inventory);
+	void printInventory() const;
 };
 
 #endif

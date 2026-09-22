@@ -7,10 +7,8 @@ Item::Item(const std::string_view name) :
 }
 
 //Print out item attributes
-std::ostream& operator<<(std::ostream& out, Item& item) {
-	out << "Item: " << item.getName() << '\n';
-
-	return out;
+void Item::printItem() const {
+	std::cout << "Item: " << m_name << '\n';
 }
 
 //Key Item Constructor
@@ -21,12 +19,9 @@ KeyItem::KeyItem(const std::string_view name, const std::string_view useLocation
 }
 
 //Print out key item attributes
-std::ostream& operator<<(std::ostream& out, KeyItem& item) {
-	out << "Key Item: " << item.getName() << '\n';
-
-	return out;
+void KeyItem::printItem() const {
+	std::cout << "Key Item: " << m_name << m_useLocation << '\n';
 }
-
 
 //Weapon Constructor
 Weapon::Weapon(const std::string_view name, const int ammoCount, const int maxAmmoCount, const int damage) :
@@ -38,10 +33,8 @@ Weapon::Weapon(const std::string_view name, const int ammoCount, const int maxAm
 }
 
 //Print out weapon attributes
-std::ostream& operator<<(std::ostream& out, Weapon& item) {
-	out << "Weapon: " << item.getName() << '\n';
-
-	return out;
+void Weapon::printItem() const {
+	std::cout << "Weapon: " << m_name << '\n';
 }
 
 
@@ -62,8 +55,6 @@ void Ammo::printCompatibleWeapons() const {
 }
 
 //Print out ammo attributes
-std::ostream& operator<<(std::ostream& out, Ammo& item) {
-	out << "Ammo: " << item.getName() << '\n';
-
-	return out;
+void Ammo::printItem() const {
+	std::cout << "Ammo: " << m_name << '\n';
 }

@@ -9,11 +9,11 @@ Inventory::Inventory(std::string_view name, const std::size_t capacity) :
 	m_inventory.reserve(capacity);
 }
 
-void Inventory::add(const Item& item) {
+void Inventory::add(Item& item) {
 	//Ensure that length stays within capacity
 	if (m_inventory.size() < m_inventory.capacity()) {
 		std::cout << "Adding a " << item.getName() << " to the inventory.\n";
-		m_inventory.push_back(item); //No need for move semantics since item is already const reference
+		m_inventory.push_back(&item); //Pass address for pointer vector
 		return;
 	}
 	
@@ -26,9 +26,9 @@ Item Inventory::remove(const std::size_t slotNumber) {
 	if (slotNumber >= 1 && slotNumber <= m_inventory.size()) {
 		std::size_t index{ slotNumber - 1 };
 
-		std::cout << "Removing the item at slot #" << slotNumber << " (" << m_inventory[index].getName() << ")\n";
+		std::cout << "Removing the item at slot #" << slotNumber << " (" << m_inventory[index]->getName() << ")\n";
 
-		Item removed{ std::move(m_inventory[index]) };
+		Item removed{ std::move(*(m_inventory[index])) };
 
 		//Move everything back in the inventory by 1 starting at the item to be removed (Squish)
 		for (std::size_t i{ index }; i < m_inventory.size() - 1; ++i) {
@@ -38,6 +38,9 @@ Item Inventory::remove(const std::size_t slotNumber) {
 		//Remove the last item in the inventory (it is an extra copy), decrement length
 		m_inventory.resize(m_inventory.size() - 1);
 
+		std::cout << "The removed Item: ";
+		removed.printItem();
+
 		//Return the item that was removed in the event of a transfer
 		return removed;
 	}	
@@ -45,6 +48,8 @@ Item Inventory::remove(const std::size_t slotNumber) {
 	return Item{}; //Return an empty item if removal failed
 }//Inventory::remove
 
+//Current issue with pointers lies here
+//toTransfer is a temp object that gets destroyed at the end of transfer, creating a dangling reference in the item box
 void Inventory::transfer(const std::size_t slotNumber, Inventory& destination) {
 	Item toTransfer{ std::move(remove(slotNumber)) };
 
@@ -54,17 +59,17 @@ void Inventory::transfer(const std::size_t slotNumber, Inventory& destination) {
 }//Inventory::transfer
 
 //Print out the inventory
-std::ostream& operator<<(std::ostream& out, const Inventory& inventory) {
-	out << "Printing " << inventory.m_name << '\n';
+void Inventory::printInventory() const {
+	std::cout << "Printing " << m_name << '\n';
 
 	int index{ 1 };
 
-	for (const auto& item : inventory.m_inventory) {
-		out << "(" << index << ") " << item << '\n';
+	for (const auto* item : m_inventory) {
+		std::cout << "(" << index << ") ";
+		item->printItem();
+		
 		++index;
 	}
 
-	out << index - 1 << "/" << inventory.m_inventory.capacity() << '\n';
-
-	return out;
+	std::cout << index - 1 << "/" << m_inventory.capacity() << '\n';
 }//Inventory::operator<<

@@ -15,13 +15,16 @@ public:
 	//Default constructor
 	Item() = default;
 
+	//Default virtual destructor
+	virtual ~Item() = default;
+
 	//Constructor
 	Item(const std::string_view name);
 
 	std::string_view getName() const { return m_name; } 
 
-	//Overload output operator
-	friend std::ostream& operator<<(std::ostream& out, Item& item);
+	//Overload printing for the inventory
+	virtual void printItem() const;
 };
 
 //Key Item class (derives from Item)
@@ -35,8 +38,8 @@ public:
 
 	std::string_view getUseLocation() const { return m_useLocation; }
 
-	//Overload output operator
-	friend std::ostream& operator<<(std::ostream& out, KeyItem& item);
+	//Overload printing for the inventory
+	void printItem() const override;
 };
 
 //Weapon (Item) class 
@@ -56,8 +59,8 @@ public:
 	int getAmmo() const { return m_ammoCount; }
 	int getMaxAmmo() const { return m_maxAmmoCount; }
 
-	//Overload output operator
-	friend std::ostream& operator<<(std::ostream& out, Weapon& item);
+	//Overload printing for the inventory
+	void printItem() const override;
 };
 
 //Ammo (Item) class
@@ -73,8 +76,8 @@ public:
 
 	void printCompatibleWeapons() const;
 
-	//Overload output operator
-	friend std::ostream& operator<<(std::ostream& out, Ammo& item);
+	//Overload printing for the inventory
+	void printItem() const override;
 };
 
 #endif

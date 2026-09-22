@@ -55,29 +55,32 @@ int main() {
 	playerInventory.add(handgunAmmo);
 	playerInventory.add(shotgunAmmo);
 
-	std::cout << playerInventory;
+	playerInventory.printInventory();
 
 	std::cout << "Length: " << playerInventory.getLength() << '\n' << "Capacity: " << playerInventory.getCapacity() << '\n';
 
 	playerInventory.remove(2);
 
-	std::cout << playerInventory;
+	playerInventory.printInventory();
 
 	std::cout << "Length: " << playerInventory.getLength() << '\n' << "Capacity: " << playerInventory.getCapacity() << '\n';
 
 	playerInventory.transfer(2, itemBox);
 	playerInventory.transfer(1, itemBox);
+	itemBox.add(test);
 
-	std::cout << playerInventory;
-	std::cout << itemBox;
+	playerInventory.printInventory();
+	itemBox.printInventory();
 
 	handgunAmmo.printCompatibleWeapons();
 	shotgunAmmo.printCompatibleWeapons();
 
-	std::cout << test;
-	std::cout << keyTest;
-	std::cout << weapon;
-	std::cout << handgunAmmo;
+	test.printItem();
+	keyTest.printItem();
+	weapon.printItem();
+	handgunAmmo.printItem();
+
+	//Refresh on object slicing to resolve printing issue (children of items are sliced into regular items when they are placed in the inventory)
 
 	return 0;
 }
