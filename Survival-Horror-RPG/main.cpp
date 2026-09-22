@@ -67,7 +67,6 @@ int main() {
 
 	playerInventory.transfer(2, itemBox);
 	playerInventory.transfer(1, itemBox);
-	itemBox.add(test);
 
 	playerInventory.printInventory();
 	itemBox.printInventory();

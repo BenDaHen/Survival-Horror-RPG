@@ -19,7 +19,7 @@ public:
 
 	void add(Item& item); //Add something to the inventory
 
-	Item remove(const std::size_t slotNumber); //Remove something from the inventory
+	Item* remove(const std::size_t slotNumber); //Remove something from the inventory
 
 	void transfer(const std::size_t slotNumber, Inventory& destination); //Transfer one item to another inventory
 

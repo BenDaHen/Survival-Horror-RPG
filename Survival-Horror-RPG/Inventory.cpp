@@ -21,14 +21,14 @@ void Inventory::add(Item& item) {
 	std::cout << "The inventory is full. Could not add an item.\n";
 }
 
-Item Inventory::remove(const std::size_t slotNumber) {
+Item* Inventory::remove(const std::size_t slotNumber) {
 	//Ensure that the given slot has an item
 	if (slotNumber >= 1 && slotNumber <= m_inventory.size()) {
 		std::size_t index{ slotNumber - 1 };
 
 		std::cout << "Removing the item at slot #" << slotNumber << " (" << m_inventory[index]->getName() << ")\n";
 
-		Item removed{ std::move(*(m_inventory[index])) };
+		Item* removed{ std::move((m_inventory[index])) }; //Pointer to the removed item
 
 		//Move everything back in the inventory by 1 starting at the item to be removed (Squish)
 		for (std::size_t i{ index }; i < m_inventory.size() - 1; ++i) {
@@ -39,23 +39,25 @@ Item Inventory::remove(const std::size_t slotNumber) {
 		m_inventory.resize(m_inventory.size() - 1);
 
 		std::cout << "The removed Item: ";
-		removed.printItem();
+		removed->printItem();
 
 		//Return the item that was removed in the event of a transfer
 		return removed;
 	}	
 
-	return Item{}; //Return an empty item if removal failed
+	//Return item at index 0 if failed
+	Item* ptr{ m_inventory[0] };
+	return ptr;
 }//Inventory::remove
 
 //Current issue with pointers lies here
 //toTransfer is a temp object that gets destroyed at the end of transfer, creating a dangling reference in the item box
 void Inventory::transfer(const std::size_t slotNumber, Inventory& destination) {
-	Item toTransfer{ std::move(remove(slotNumber)) };
+	Item* toTransfer{ std::move(remove(slotNumber)) };
 
-	std::cout << "Transfering the " << toTransfer.getName() << " from " << m_name << " to " << destination.getName() << '\n';
+	std::cout << "Transfering the " << toTransfer->getName() << " from " << m_name << " to " << destination.getName() << '\n';
 
-	destination.add(toTransfer);
+	destination.add(*toTransfer);
 }//Inventory::transfer
 
 //Print out the inventory
