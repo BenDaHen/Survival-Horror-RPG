@@ -8,7 +8,7 @@ Item::Item(const std::string_view name) :
 
 //Print out item attributes
 void Item::printItem() const {
-	std::cout << "Item: " << m_name << '\n';
+	std::cout << m_name << '\n';
 }
 
 //Key Item Constructor
@@ -20,7 +20,7 @@ KeyItem::KeyItem(const std::string_view name, const std::string_view useLocation
 
 //Print out key item attributes
 void KeyItem::printItem() const {
-	std::cout << "Key Item: " << m_name << m_useLocation << '\n';
+	std::cout << m_name << '\n';
 }
 
 //Weapon Constructor
@@ -34,7 +34,7 @@ Weapon::Weapon(const std::string_view name, const int ammoCount, const int maxAm
 
 //Print out weapon attributes
 void Weapon::printItem() const {
-	std::cout << "Weapon: " << m_name << '\n';
+	std::cout << m_name << ' ' << m_ammoCount << "/" << m_maxAmmoCount << '\n';
 }
 
 
@@ -56,5 +56,5 @@ void Ammo::printCompatibleWeapons() const {
 
 //Print out ammo attributes
 void Ammo::printItem() const {
-	std::cout << "Ammo: " << m_name << '\n';
+	std::cout << m_name << " x" << m_ammoCount << '\n';
 }

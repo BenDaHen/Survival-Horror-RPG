@@ -21,7 +21,8 @@ enum WeaponType {
 };
 
 enum AmmoType {
-	handgun_bullets,
+	handgun_bullets_small,
+	handgun_bullets_medium,
 	shotgun_shells,
 	flame_rounds, 
 	acid_rounds, 
@@ -46,7 +47,8 @@ static inline Weapon weaponData[]{
 };
 
 static inline Ammo ammoData[]{
-	Ammo{"Handgun Bullets", 10, 60, {"Handgun"}},
+	Ammo{"Handgun Bullets", 5, 60, {"Handgun"}},
+	Ammo{"Handgun Bullets", 15, 60, {"Handgun"}},
 	Ammo{"Shotgun Shells", 5, 30, {"Shotgun"}},
 	Ammo{"Flame Rounds", 3, 15, {"Grenade Launcher"}},
 	Ammo{"Acid Rounds", 3, 15, {"Grenade Launcher"}},

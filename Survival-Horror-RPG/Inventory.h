@@ -30,6 +30,8 @@ public:
 	void upgradeInventory() { m_inventory.reserve(10); } //Upgrade the inventory to 10 slots
 
 	void printInventory() const;
+
+	void stackItems(); //Function that stacks similar items together (i.e. ammo)
 };
 
 #endif

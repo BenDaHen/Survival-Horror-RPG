@@ -36,7 +36,8 @@ int main() {
 
 	Weapon weapon{ Weapon{weaponData[handgun]} };
 
-	Ammo handgunAmmo{ Ammo{ammoData[handgun_bullets]} };
+	Ammo handgunAmmoSmall{ Ammo{ammoData[handgun_bullets_small]} };
+	Ammo handgunAmmoMedium{ Ammo{ammoData[handgun_bullets_medium]} };
 	Ammo shotgunAmmo{ Ammo{ammoData[shotgun_shells]} };
 
 	std::cout << "The " << keyTest.getName() << " is used in " << keyTest.getUseLocation();
@@ -52,8 +53,8 @@ int main() {
 	playerInventory.add(test);
 	playerInventory.add(keyTest);
 	playerInventory.add(weapon);
-	playerInventory.add(handgunAmmo);
-	playerInventory.add(shotgunAmmo);
+	playerInventory.add(handgunAmmoSmall);
+	playerInventory.add(handgunAmmoMedium);
 
 	playerInventory.printInventory();
 
@@ -71,15 +72,7 @@ int main() {
 	playerInventory.printInventory();
 	itemBox.printInventory();
 
-	handgunAmmo.printCompatibleWeapons();
-	shotgunAmmo.printCompatibleWeapons();
-
-	test.printItem();
-	keyTest.printItem();
-	weapon.printItem();
-	handgunAmmo.printItem();
-
-	//Refresh on object slicing to resolve printing issue (children of items are sliced into regular items when they are placed in the inventory)
+	playerInventory.stackItems();
 
 	return 0;
 }

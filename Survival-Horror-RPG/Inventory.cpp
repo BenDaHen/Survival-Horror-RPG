@@ -75,3 +75,20 @@ void Inventory::printInventory() const {
 
 	std::cout << index - 1 << "/" << m_inventory.capacity() << '\n';
 }//Inventory::operator<<
+
+//Stack similar items together
+void Inventory::stackItems() {
+	//Stacking just ammo together
+
+	//Check for similarly named ammo in the inventory (names are the same regardless of stack size)
+	for (std::size_t item_i{ 0 }; item_i < m_inventory.size(); ++item_i) {
+		for (std::size_t item_j{ item_i }; item_j < m_inventory.size(); ++item_j) {
+			//If the names are equal then stack the items
+			if (m_inventory[item_i]->getName() == m_inventory[item_j]->getName() && m_inventory[item_i] != m_inventory[item_j]) {
+				//Just ammo that gets stacked for now
+				std::cout << "Item " << m_inventory[item_i]->getName() << " equals item " << m_inventory[item_j]->getName();
+			}
+		}
+	}
+
+}//Inventory::stackItems
