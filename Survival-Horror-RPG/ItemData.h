@@ -29,9 +29,9 @@ enum AmmoType {
 };
 
 static inline Item itemData[]{
-	Item{"Green Herb"},
-	Item{"Red Herb"},
-	Item{"Blue Herb"}
+	Item{"Green Herb", false},
+	Item{"Red Herb", false},
+	Item{"Blue Herb", false}
 };
 
 static inline KeyItem keyItemData[]{

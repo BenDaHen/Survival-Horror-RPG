@@ -8,8 +8,9 @@
 
 //Item class
 class Item {
-protected: 
+protected:
 	std::string m_name{}; //All items have a name
+	bool m_stackable{}; //Is the item stackable in the inventory
 
 public:
 	//Default constructor
@@ -19,9 +20,10 @@ public:
 	virtual ~Item() = default;
 
 	//Constructor
-	Item(const std::string_view name);
+	Item(const std::string_view name, const bool stackable);
 
 	std::string_view getName() const { return m_name; } 
+	bool isStackable() const { return m_stackable; }
 
 	//Overload printing for the inventory
 	virtual void printItem() const;
@@ -74,7 +76,12 @@ public:
 	//Constructor
 	Ammo(const std::string_view name, const int ammoCount, const int maxAmmoCount, const std::array<std::string_view, 1> compatibleWeapons);
 
-	void printCompatibleWeapons() const;
+	int getAmmo() const { return m_ammoCount; } //Get the current ammo of a stack
+	int getMaxAmmo() const { return m_maxAmmoCount; } //Get the max possible ammo for a stack
+
+	void setAmmo(const int newAmmo); //Set the current ammo of a stack
+
+	void printCompatibleWeapons() const; //Print out what weapons are compatible with the ammo type
 
 	//Overload printing for the inventory
 	void printItem() const override;

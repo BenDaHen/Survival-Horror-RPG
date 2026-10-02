@@ -50,8 +50,7 @@ Item* Inventory::remove(const std::size_t slotNumber) {
 	return ptr;
 }//Inventory::remove
 
-//Current issue with pointers lies here
-//toTransfer is a temp object that gets destroyed at the end of transfer, creating a dangling reference in the item box
+//Initiate a transfer by removing frome one inventory and adding the removed item to another inventory
 void Inventory::transfer(const std::size_t slotNumber, Inventory& destination) {
 	Item* toTransfer{ std::move(remove(slotNumber)) };
 
@@ -78,17 +77,49 @@ void Inventory::printInventory() const {
 
 //Stack similar items together
 void Inventory::stackItems() {
-	//Stacking just ammo together
+	//Only stacking ammo together
+	Ammo* recievingItem{};
+	Ammo* sendingItem{};
+	std::size_t recievingIndex{};
+	std::size_t sendingIndex{};
 
 	//Check for similarly named ammo in the inventory (names are the same regardless of stack size)
 	for (std::size_t item_i{ 0 }; item_i < m_inventory.size(); ++item_i) {
 		for (std::size_t item_j{ item_i }; item_j < m_inventory.size(); ++item_j) {
-			//If the names are equal then stack the items
-			if (m_inventory[item_i]->getName() == m_inventory[item_j]->getName() && m_inventory[item_i] != m_inventory[item_j]) {
-				//Just ammo that gets stacked for now
-				std::cout << "Item " << m_inventory[item_i]->getName() << " equals item " << m_inventory[item_j]->getName();
+			//If the names are equal, are not referencing the same item, and the item is stackable then get the locations and indexes of the items in the inventory
+			if (m_inventory[item_i]->getName() == m_inventory[item_j]->getName() && m_inventory[item_i] != m_inventory[item_j] && m_inventory[item_i]->isStackable()) {
+				std::cout << "Item #" << item_i+1 << ' ' << m_inventory[item_i]->getName() << " can be stacked with Item #" << item_j + 1  << ' ' << m_inventory[item_j]->getName();
+
+				//Update the item indexes
+				recievingIndex = item_i;
+				sendingIndex = item_j;
 			}
 		}
 	}
+
+	//Update the pointers to the items in main function scope
+	recievingItem = dynamic_cast<Ammo*>(m_inventory[recievingIndex]);
+	sendingItem = dynamic_cast<Ammo*>(m_inventory[sendingIndex]);
+
+	//Make sure that the dynamic casts are not null
+	if (!recievingItem || !sendingItem) {
+		std::cout << "Dynamic cast failed for ammo stacking.\n";
+		return;
+	}
+
+	//If there is space to stack the ammo
+	if (recievingItem->getAmmo() + sendingItem->getAmmo() <= recievingItem->getMaxAmmo()) {
+		recievingItem->setAmmo(recievingItem->getAmmo() + sendingItem->getAmmo()); //Reciving ammo stack gets the sending ammo stack
+
+		//Move everything back in the inventory by 1 starting at the item to be removed (Squish)
+		for (std::size_t i{ sendingIndex }; i < m_inventory.size() - 1; ++i) {
+			m_inventory[i] = std::move(m_inventory[i + 1]); //Uses move semantics to avoid expensive copies
+		}
+
+		//Remove the last item in the inventory (it is an extra copy), decrement length
+		m_inventory.resize(m_inventory.size() - 1);
+	}
+	//If there is space to stack some of the ammo
+	//Code Here
 
 }//Inventory::stackItems

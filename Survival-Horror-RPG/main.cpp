@@ -73,6 +73,7 @@ int main() {
 	itemBox.printInventory();
 
 	playerInventory.stackItems();
+	playerInventory.printInventory();
 
 	return 0;
 }
