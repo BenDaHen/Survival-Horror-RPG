@@ -26,11 +26,13 @@ public:
 	std::string_view getName() const { return m_name; }
 	std::size_t getLength() const { return m_inventory.size(); }
 	std::size_t getCapacity() const { return m_inventory.capacity(); }
+	std::vector<Item*> getInventory() const { return m_inventory; }
 
 	void upgradeInventory() { m_inventory.reserve(10); } //Upgrade the inventory to 10 slots
 
 	void printInventory() const;
 
+	void getStackIndexes(std::size_t& index_i, std::size_t& index_j); //Get the indexes of the items to be stacked 
 	void stackItems(); //Function that stacks similar items together (i.e. ammo)
 };
 

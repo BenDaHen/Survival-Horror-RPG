@@ -38,6 +38,7 @@ int main() {
 
 	Ammo handgunAmmoSmall{ Ammo{ammoData[handgun_bullets_small]} };
 	Ammo handgunAmmoMedium{ Ammo{ammoData[handgun_bullets_medium]} };
+	Ammo handgunAmmoMax{ Ammo{ammoData[handgun_bullets_max]} };
 	Ammo shotgunAmmo{ Ammo{ammoData[shotgun_shells]} };
 
 	std::cout << "The " << keyTest.getName() << " is used in " << keyTest.getUseLocation();
@@ -55,6 +56,7 @@ int main() {
 	playerInventory.add(weapon);
 	playerInventory.add(handgunAmmoSmall);
 	playerInventory.add(handgunAmmoMedium);
+	playerInventory.add(handgunAmmoMax);
 
 	playerInventory.printInventory();
 
@@ -71,6 +73,9 @@ int main() {
 
 	playerInventory.printInventory();
 	itemBox.printInventory();
+
+	playerInventory.stackItems();
+	playerInventory.printInventory();
 
 	playerInventory.stackItems();
 	playerInventory.printInventory();

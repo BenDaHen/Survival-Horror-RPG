@@ -75,6 +75,26 @@ void Inventory::printInventory() const {
 	std::cout << index - 1 << "/" << m_inventory.capacity() << '\n';
 }//Inventory::operator<<
 
+//Get the indexes for item stacking
+void Inventory::getStackIndexes(std::size_t& recievingIndex, std::size_t& sendingIndex) {
+	//Check for similarly named ammo in the inventory (names are the same regardless of stack size)
+	for (std::size_t item_i{ 0 }; item_i < m_inventory.size(); ++item_i) {
+		for (std::size_t item_j{ item_i }; item_j < m_inventory.size(); ++item_j) {
+			//If the names are equal, are not referencing the same item, and the item is stackable then get the locations and indexes of the items in the inventory
+			if (m_inventory[item_i]->getName() == m_inventory[item_j]->getName() && m_inventory[item_i] != m_inventory[item_j] && m_inventory[item_i]->isStackable()) {
+				std::cout << "Item #" << item_i + 1 << ' ' << m_inventory[item_i]->getName() << " can be stacked with Item #" << item_j + 1 << ' ' << m_inventory[item_j]->getName();
+
+				//Update the item indexes
+				recievingIndex = item_i;
+				sendingIndex = item_j;
+
+				//Return to the stacking process
+				return;
+			}
+		}
+	}
+}//getStackIndexes
+
 //Stack similar items together
 void Inventory::stackItems() {
 	//Only stacking ammo together
@@ -83,19 +103,8 @@ void Inventory::stackItems() {
 	std::size_t recievingIndex{};
 	std::size_t sendingIndex{};
 
-	//Check for similarly named ammo in the inventory (names are the same regardless of stack size)
-	for (std::size_t item_i{ 0 }; item_i < m_inventory.size(); ++item_i) {
-		for (std::size_t item_j{ item_i }; item_j < m_inventory.size(); ++item_j) {
-			//If the names are equal, are not referencing the same item, and the item is stackable then get the locations and indexes of the items in the inventory
-			if (m_inventory[item_i]->getName() == m_inventory[item_j]->getName() && m_inventory[item_i] != m_inventory[item_j] && m_inventory[item_i]->isStackable()) {
-				std::cout << "Item #" << item_i+1 << ' ' << m_inventory[item_i]->getName() << " can be stacked with Item #" << item_j + 1  << ' ' << m_inventory[item_j]->getName();
-
-				//Update the item indexes
-				recievingIndex = item_i;
-				sendingIndex = item_j;
-			}
-		}
-	}
+	//Get the indexes of the items to be stacked
+	getStackIndexes(recievingIndex, sendingIndex);
 
 	//Update the pointers to the items in main function scope
 	recievingItem = dynamic_cast<Ammo*>(m_inventory[recievingIndex]);
@@ -120,6 +129,12 @@ void Inventory::stackItems() {
 		m_inventory.resize(m_inventory.size() - 1);
 	}
 	//If there is space to stack some of the ammo
-	//Code Here
+	else if (recievingItem->getAmmo() + sendingItem->getAmmo() > recievingItem->getMaxAmmo()) {
+		int excessAmmo{recievingItem->getAmmo() + sendingItem->getAmmo() - recievingItem->getMaxAmmo()}; //Extra ammo for the second stack
+
+		//Recieving item is maxed out, sending item keeps the excess
+		recievingItem->setAmmo(recievingItem->getMaxAmmo());
+		sendingItem->setAmmo(excessAmmo);
+	}
 
 }//Inventory::stackItems
