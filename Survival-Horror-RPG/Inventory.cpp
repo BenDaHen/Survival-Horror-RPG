@@ -82,7 +82,7 @@ void Inventory::getStackIndexes(std::size_t& recievingIndex, std::size_t& sendin
 		for (std::size_t item_j{ item_i }; item_j < m_inventory.size(); ++item_j) {
 			//If the names are equal, are not referencing the same item, and the item is stackable then get the locations and indexes of the items in the inventory
 			if (m_inventory[item_i]->getName() == m_inventory[item_j]->getName() && m_inventory[item_i] != m_inventory[item_j] && m_inventory[item_i]->isStackable()) {
-				std::cout << "Item #" << item_i + 1 << ' ' << m_inventory[item_i]->getName() << " can be stacked with Item #" << item_j + 1 << ' ' << m_inventory[item_j]->getName();
+				std::cout << "Item #" << item_i + 1 << ' ' << m_inventory[item_i]->getName() << " can be stacked with Item #" << item_j + 1 << ' ' << m_inventory[item_j]->getName() << '\n';
 
 				//Update the item indexes
 				recievingIndex = item_i;
@@ -93,6 +93,8 @@ void Inventory::getStackIndexes(std::size_t& recievingIndex, std::size_t& sendin
 			}
 		}
 	}
+
+	//Loop will always return early since full stack and half stack is considered "stackable"
 }//getStackIndexes
 
 //Stack similar items together
@@ -127,14 +129,20 @@ void Inventory::stackItems() {
 
 		//Remove the last item in the inventory (it is an extra copy), decrement length
 		m_inventory.resize(m_inventory.size() - 1);
+
+		return;
 	}
 	//If there is space to stack some of the ammo
-	else if (recievingItem->getAmmo() + sendingItem->getAmmo() > recievingItem->getMaxAmmo()) {
+	else if (recievingItem->getAmmo() + sendingItem->getAmmo() > recievingItem->getMaxAmmo() && recievingItem->getAmmo() < recievingItem->getMaxAmmo()) {
 		int excessAmmo{recievingItem->getAmmo() + sendingItem->getAmmo() - recievingItem->getMaxAmmo()}; //Extra ammo for the second stack
 
 		//Recieving item is maxed out, sending item keeps the excess
 		recievingItem->setAmmo(recievingItem->getMaxAmmo());
 		sendingItem->setAmmo(excessAmmo);
+
+		return;
 	}
 
+	//No stacking possible
+	std::cout << "No stacking possible.\n";
 }//Inventory::stackItems
