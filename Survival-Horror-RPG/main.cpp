@@ -39,8 +39,8 @@ void testing() {
 	playerInventory.add(test);
 	playerInventory.add(test);
 	playerInventory.add(keyTest);
-	playerInventory.add(weapon);
 	playerInventory.add(handgunAmmoSmall);
+	playerInventory.add(weapon);
 	playerInventory.add(handgunAmmoSmall);
 	//playerInventory.add(handgunAmmoMax);
 

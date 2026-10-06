@@ -81,7 +81,6 @@ void Inventory::getStackIndexes(std::size_t& recievingIndex, std::size_t& sendin
 	for (std::size_t item_i{ 0 }; item_i < m_inventory.size(); ++item_i) {
 		for (std::size_t item_j{ item_i }; item_j < m_inventory.size(); ++item_j) {
 			//If the names are equal, are not referencing the same index, and the item is stackable then get the locations and indexes of the items in the inventory
-			//std::cout << "Testing " << m_inventory[item_i]->getName() << " and " << m_inventory[item_j]->getName() << "\n";
 			if (m_inventory[item_i]->getName() == m_inventory[item_j]->getName() && item_i != item_j && m_inventory[item_i]->isStackable()) {
 				std::cout << "Item #" << item_i + 1 << ' ' << m_inventory[item_i]->getName() << " can be stacked with Item #" << item_j + 1 << ' ' << m_inventory[item_j]->getName() << '\n';
 
@@ -115,7 +114,7 @@ void Inventory::stackItems() {
 
 	//Make sure that the dynamic casts are not null
 	if (!recievingItem || !sendingItem) {
-		std::cout << "Dynamic cast failed for ammo stacking.\n";
+		std::cout << "Dynamic cast failed for ammo stacking (Or nothing can be stacked).\n";
 		return;
 	}
 
