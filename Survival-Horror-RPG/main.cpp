@@ -34,6 +34,9 @@ void testing() {
 
 	//Test that items can be added to the inventory
 
+	//BAR
+	std::cout << "BAR!\n\n";
+
 	std::cout << "Adding items to the inventory: \n\n";
 
 	playerInventory.add(test.get());
