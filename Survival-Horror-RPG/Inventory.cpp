@@ -9,11 +9,11 @@ Inventory::Inventory(std::string_view name, const std::size_t capacity) :
 	m_inventory.reserve(capacity);
 }
 
-void Inventory::add(Item& item) {
+void Inventory::add(Item* item) {
 	//Ensure that length stays within capacity
 	if (m_inventory.size() < m_inventory.capacity()) {
-		std::cout << "Adding a " << item.getName() << " to the inventory.\n";
-		m_inventory.push_back(&item); //Pass address for pointer vector
+		std::cout << "Adding a " << item->getName() << " to the inventory.\n";
+		m_inventory.push_back(std::move(item)); //Pass address for pointer vector
 		return;
 	}
 	
@@ -21,14 +21,14 @@ void Inventory::add(Item& item) {
 	std::cout << "The inventory is full. Could not add an item.\n";
 }
 
-Item* Inventory::remove(const std::size_t slotNumber) {
+std::unique_ptr<Item> Inventory::remove(const std::size_t slotNumber) {
 	//Ensure that the given slot has an item
 	if (slotNumber >= 1 && slotNumber <= m_inventory.size()) {
 		std::size_t index{ slotNumber - 1 };
 
 		std::cout << "Removing the item at slot #" << slotNumber << " (" << m_inventory[index]->getName() << ")\n";
 
-		Item* removed{ std::move((m_inventory[index])) }; //Pointer to the removed item
+		std::unique_ptr<Item> removed{ std::move(m_inventory[index]) }; //Pointer to the removed item (not new memory
 
 		//Move everything back in the inventory by 1 starting at the item to be removed (Squish)
 		for (std::size_t i{ index }; i < m_inventory.size() - 1; ++i) {
@@ -45,18 +45,20 @@ Item* Inventory::remove(const std::size_t slotNumber) {
 		return removed;
 	}	
 
-	//Return item at index 0 if failed
-	Item* ptr{ m_inventory[0] };
+	//Return empty item if failed
+	auto ptr{ std::make_unique<Item>()};
 	return ptr;
+
+	//Removed item is destroyed at the end of this function
 }//Inventory::remove
 
 //Initiate a transfer by removing frome one inventory and adding the removed item to another inventory
 void Inventory::transfer(const std::size_t slotNumber, Inventory& destination) {
-	Item* toTransfer{ std::move(remove(slotNumber)) };
+	std::unique_ptr<Item> toTransfer{ std::move(remove(slotNumber)) };
 
 	std::cout << "Transfering the " << toTransfer->getName() << " from " << m_name << " to " << destination.getName() << '\n';
 
-	destination.add(*toTransfer);
+	destination.add(std::move(toTransfer));
 }//Inventory::transfer
 
 //Print out the inventory
@@ -65,7 +67,7 @@ void Inventory::printInventory() const {
 
 	int index{ 1 };
 
-	for (const auto* item : m_inventory) {
+	for (const auto item : m_inventory) {
 		std::cout << "(" << index << ") ";
 		item->printItem();
 		

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include <memory> //For std::unique_ptr
 
 #include "newGame.h"
 #include "loadGame.h"
@@ -10,22 +11,22 @@
 
 //Testing
 void testing() {
-	Item test{ Item{itemData[green_herb]} };
+	auto test{ std::make_unique<Item>(itemData[green_herb]) };
 
-	KeyItem keyTest{ KeyItem{keyItemData[armor_key]} };
+	auto keyTest{ std::make_unique<KeyItem>(keyItemData[armor_key]) };
 
-	Weapon weapon{ Weapon{weaponData[handgun]} };
+	auto weapon{ std::make_unique<Weapon>(weaponData[handgun]) };
 
-	Ammo handgunAmmoSmall{ Ammo{ammoData[handgun_bullets_small]} };
-	Ammo handgunAmmoMedium{ Ammo{ammoData[handgun_bullets_medium]} };
-	Ammo handgunAmmoMax{ Ammo{ammoData[handgun_bullets_max]} };
-	Ammo shotgunAmmo{ Ammo{ammoData[shotgun_shells]} };
+	auto handgunAmmoSmall{ std::make_unique<Ammo>(ammoData[handgun_bullets_small]) };
+	auto handgunAmmoMedium{ std::make_unique<Ammo>(ammoData[handgun_bullets_medium]) };
+	auto handgunAmmoMax{ std::make_unique<Ammo>(ammoData[handgun_bullets_max]) };
+	auto shotgunAmmo{ std::make_unique<Ammo>(ammoData[shotgun_shells]) };
 
 	std::cout << "Item Getters: \n\n";
 
-	std::cout << "The " << keyTest.getName() << " is used in " << keyTest.getUseLocation();
+	std::cout << "The " << keyTest->getName() << " is used in " << keyTest->getUseLocation();
 
-	std::cout << "The " << weapon.getName() << " does " << weapon.getDamage() << " damage";
+	std::cout << "The " << weapon->getName() << " does " << weapon->getDamage() << " damage";
 
 	Inventory playerInventory{ "Player's Inventory", 8 };
 
@@ -35,13 +36,13 @@ void testing() {
 
 	std::cout << "Adding items to the inventory: \n\n";
 
-	playerInventory.add(test);
-	playerInventory.add(test);
-	playerInventory.add(test);
-	playerInventory.add(keyTest);
-	playerInventory.add(handgunAmmoSmall);
-	playerInventory.add(weapon);
-	playerInventory.add(handgunAmmoSmall);
+	playerInventory.add(test.get());
+	playerInventory.add(test.get());
+	playerInventory.add(test.get());
+	playerInventory.add(keyTest.get());
+	playerInventory.add(handgunAmmoSmall.get());
+	playerInventory.add(weapon.get());
+	playerInventory.add(handgunAmmoSmall.get());
 	//playerInventory.add(handgunAmmoMax);
 
 	std::cout << "Printing the inventory: \n\n";
@@ -77,9 +78,9 @@ void testing() {
 	//No more stacking possible here
 	playerInventory.stackItems();
 
-	itemBox.add(shotgunAmmo);
-	itemBox.add(shotgunAmmo);
-	itemBox.add(shotgunAmmo);
+	itemBox.add(shotgunAmmo.get());
+	itemBox.add(shotgunAmmo.get());
+	itemBox.add(shotgunAmmo.get());
 
 	itemBox.printInventory();
 

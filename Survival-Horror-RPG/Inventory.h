@@ -11,22 +11,22 @@
 class Inventory {
 private:
 	std::string m_name{};
-	std::vector<Item*> m_inventory{}; //Create an empty vector of pointers to Items
+	std::vector<std::unique_ptr<Item>> m_inventory{}; //Create an empty vector of dynamically allocated items
 
 public:
 	//Constructor
 	Inventory(std::string_view name, const std::size_t capacity);
 
-	void add(Item& item); //Add something to the inventory
+	void add(Item* item); //Add something to the inventory (Pass item pointer as is to avoid transfering ownership
 
-	Item* remove(const std::size_t slotNumber); //Remove something from the inventory
+	std::unique_ptr<Item> remove(const std::size_t slotNumber); //Remove something from the inventory
 
 	void transfer(const std::size_t slotNumber, Inventory& destination); //Transfer one item to another inventory
 
 	std::string_view getName() const { return m_name; }
 	std::size_t getLength() const { return m_inventory.size(); }
 	std::size_t getCapacity() const { return m_inventory.capacity(); }
-	std::vector<Item*> getInventory() const { return m_inventory; }
+	std::vector<std::unique_ptr<Item>> getInventory() const { return m_inventory; }
 
 	void upgradeInventory() { m_inventory.reserve(10); } //Upgrade the inventory to 10 slots
 
