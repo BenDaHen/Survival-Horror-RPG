@@ -49,12 +49,12 @@ void testing() {
 	playerInventory.add({}, green_herb, false); //Create a new Herb
 	playerInventory.add({}, green_herb, false); //Create a new Herb
 	playerInventory.add({}, green_herb, false); //Create a new Herb
-	playerInventory.add({}, red_herb, false);
-	playerInventory.add({}, blue_herb, false);
+	//playerInventory.add({}, red_herb, false);
+	//playerInventory.add({}, blue_herb, false);
 	playerInventory.add({}, armor_key, false);
-	//auto item5{ playerInventory.add(handgunAmmoSmall.get()) };
-	//auto item6{ playerInventory.add(weapon.get()) };
-	//auto item7{ playerInventory.add(handgunAmmoSmall.get()) };
+	playerInventory.add({}, handgun_bullets_small, false);
+	playerInventory.add({}, handgun_bullets_medium, false);
+	playerInventory.add({}, handgun, false);
 	//playerInventory.add(handgunAmmoMax);
 
 	std::cout << "Printing the inventory: \n\n";
@@ -79,26 +79,26 @@ void testing() {
 	playerInventory.printInventory();
 	itemBox.printInventory();
 
-	/*std::cout << "Stacking items in an inventory: \n\n";
+	std::cout << "Stacking items in an inventory: \n\n";
 
 	playerInventory.stackItems();
 	playerInventory.printInventory();
 
 	playerInventory.stackItems();
-	playerInventory.printInventory();*/
+	playerInventory.printInventory();
 
 	//No more stacking possible here
-	/*playerInventory.stackItems();*/
+	playerInventory.stackItems();
 
-	/*auto item8{ itemBox.add(shotgunAmmo.get()) };
-	auto item9{ itemBox.add(shotgunAmmo.get()) };
-	auto item10{ itemBox.add(shotgunAmmo.get()) };*/
+	itemBox.add({}, shotgun_shells, false);
+	itemBox.add({}, shotgun_shells, false);
+	itemBox.add({}, shotgun_shells, false);
 
-	/*itemBox.printInventory();
+	itemBox.printInventory();
 
 	itemBox.stackItems();
 
-	itemBox.printInventory();*/
+	itemBox.printInventory();
 }//testing
 
 void titleScreen() {

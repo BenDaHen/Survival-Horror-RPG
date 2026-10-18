@@ -33,15 +33,37 @@ void Inventory::add(Item* transferedItem, ItemType itemType, bool transfer) { //
 			//Check which type the item really is, then dynamically allocate a new item
 			//Range of Items
 			if (itemType >= 0 && itemType <= 2) {
-				Item* newItem{ new Item {itemData[itemType]} };
+				Item* newItem{ new Item {itemData[itemType]} }; //No need for relative index here since it is the first set in the enum
 				newItem->setAddress(&newItem); //Save the address in the item for later use
 				std::cout << "Created a " << newItem->getName() << ", adding it to the inventory.\n";
 				m_inventory.push_back(newItem); //Push raw pointer to the inventory
 				return;
 			}
-			//Range of KeyItems
-			if (itemType >= 3 && itemType <= 5) {
-				KeyItem* newItem{ new KeyItem {keyItemData[itemType]} };
+			//Range of Key Items
+			else if (itemType >= 3 && itemType <= 5) {
+				int relativeKeyItemIndex{ itemType - 3 }; //Get the relative index of key items (i.e. item 3 in the enum would be item 0 in keyItemData)
+
+				KeyItem* newItem{ new KeyItem {keyItemData[relativeKeyItemIndex]} }; //itemType is out of bounds for keyItemData here
+				//newItem->setAddress(&newItem); //Save the address in the item for later use
+				std::cout << "Created a " << newItem->getName() << ", adding it to the inventory.\n";
+				m_inventory.push_back(newItem); //Push raw pointer to the inventory
+				return;
+			}
+			//Range of Weapons
+			else if (itemType >= 6 && itemType <= 8) {
+				int relativeWeaponIndex{ itemType - 6 }; //Get the relative index of weapons (i.e. item 6 in the enum would be item 0 in weaponData)
+
+				Weapon* newItem{ new Weapon {weaponData[relativeWeaponIndex]} }; //itemType is out of bounds for keyItemData here
+				//newItem->setAddress(&newItem); //Save the address in the item for later use
+				std::cout << "Created a " << newItem->getName() << ", adding it to the inventory.\n";
+				m_inventory.push_back(newItem); //Push raw pointer to the inventory
+				return;
+			}
+			//Range of Ammo
+			else if (itemType >= 9 && itemType <= 14) {
+				int relativeAmmoIndex{ itemType - 9 }; //Get the relative index of ammo (i.e. item 9 in the enum would be item 0 in ammoData)
+
+				Ammo* newItem{ new Ammo {ammoData[relativeAmmoIndex]} }; //itemType is out of bounds for keyItemData here
 				//newItem->setAddress(&newItem); //Save the address in the item for later use
 				std::cout << "Created a " << newItem->getName() << ", adding it to the inventory.\n";
 				m_inventory.push_back(newItem); //Push raw pointer to the inventory
@@ -82,6 +104,7 @@ Item* Inventory::remove(const std::size_t slotNumber, bool transfer) {
 		}
 		
 		//Otherwise delete the item that was removed
+		std::cout << "Deleting the " << removed->getName() << '\n';
 		delete removed;
 		removed = nullptr;
 	}	
@@ -159,7 +182,7 @@ void Inventory::stackItems() {
 		return;
 	}
 
-	//If there is space to stack the ammo
+	//If there is space to stack the ammo (This also needs to delete the memory associated with the old stack)
 	if (recievingItem->getAmmo() + sendingItem->getAmmo() <= recievingItem->getMaxAmmo()) {
 		recievingItem->setAmmo(recievingItem->getAmmo() + sendingItem->getAmmo()); //Reciving ammo stack gets the sending ammo stack
 
