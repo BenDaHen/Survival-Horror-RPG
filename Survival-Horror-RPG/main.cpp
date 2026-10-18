@@ -49,10 +49,9 @@ void testing() {
 	playerInventory.add({}, green_herb, false); //Create a new Herb
 	playerInventory.add({}, green_herb, false); //Create a new Herb
 	playerInventory.add({}, green_herb, false); //Create a new Herb
-	playerInventory.add({}, green_herb, false); //Create a new Herb
 	playerInventory.add({}, red_herb, false);
 	playerInventory.add({}, blue_herb, false);
-	//auto item4{ playerInventory.add(keyTest.get()) };
+	playerInventory.add({}, armor_key, false);
 	//auto item5{ playerInventory.add(handgunAmmoSmall.get()) };
 	//auto item6{ playerInventory.add(weapon.get()) };
 	//auto item7{ playerInventory.add(handgunAmmoSmall.get()) };

@@ -20,6 +20,9 @@ public:
 	//Constructor
 	Inventory(std::string_view name, const std::size_t capacity);
 
+	//Destructor
+	~Inventory();
+
 	void add(Item* transferedItem, ItemType itemType, bool transfer); //Add something to the inventory (No need to create a new item if a transfer is occuring)
 
 	Item* remove(const std::size_t slotNumber, bool transfer); //Remove something from the inventory

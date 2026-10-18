@@ -1,34 +1,31 @@
 #include "Item.h"
 
+enum ItemType {
+	//Standard Items (0 - 2)
+	green_herb,
+	red_herb,
+	blue_herb,
 
-	enum ItemType {
-		green_herb,
-		red_herb,
-		blue_herb,
-		max_items,
-	};
+	//Key Items (3 - 5)
+	armor_key,
+	helmet_key,
+	some_key,
 
-	enum KeyItemType {
-		armor_key,
-		helmet_key,
-		some_key,
-		max_key_items,
-	};
+	//Weapons (6 - 8)
+	handgun,
+	shotgun,
+	grenade_launcher,
 
-	enum WeaponType {
-		handgun,
-		shotgun,
-		grenade_launcher,
-	};
+	//Ammo (9 - 14)
+	handgun_bullets_small,
+	handgun_bullets_medium,
+	handgun_bullets_max,
+	shotgun_shells,
+	flame_rounds,
+	acid_rounds,
 
-	enum AmmoType {
-		handgun_bullets_small,
-		handgun_bullets_medium,
-		handgun_bullets_max,
-		shotgun_shells,
-		flame_rounds,
-		acid_rounds,
-	};
+	max_items, //15
+};
 
 	static inline Item itemData[]{
 		Item{"Green Herb", false},

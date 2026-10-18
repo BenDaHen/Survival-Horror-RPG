@@ -9,6 +9,17 @@ Inventory::Inventory(std::string_view name, const std::size_t capacity) :
 	m_inventory.reserve(capacity);
 }
 
+//Destructor
+Inventory::~Inventory() {
+	//Deallocate memory for every item in the inventory
+	for (auto Item : m_inventory) {
+		delete Item;
+		Item = nullptr;
+	}
+
+	std::cout << "The " << m_name << " has been successfuly deleted.\n";
+}//Inventory::~Inventory
+
 void Inventory::add(Item* transferedItem, ItemType itemType, bool transfer) { //Pass in an item pointer for transfer, or a type to create something
 	//Ensure that length stays within capacity
 	if (m_inventory.size() < m_inventory.capacity()) {
@@ -19,12 +30,23 @@ void Inventory::add(Item* transferedItem, ItemType itemType, bool transfer) { //
 		}
 		//Create a new item
 		else {
-			//Dynamically allocate a new item
-			auto* newItem{ new Item {itemData[itemType]} };
-			newItem->setAddress(&newItem); //Save the address in the item for later use
-			std::cout << "Created a " << newItem->getName() << ", adding it to the inventory.\n";
-			m_inventory.push_back(newItem); //Push raw pointer to the inventory
-			return;
+			//Check which type the item really is, then dynamically allocate a new item
+			//Range of Items
+			if (itemType >= 0 && itemType <= 2) {
+				Item* newItem{ new Item {itemData[itemType]} };
+				newItem->setAddress(&newItem); //Save the address in the item for later use
+				std::cout << "Created a " << newItem->getName() << ", adding it to the inventory.\n";
+				m_inventory.push_back(newItem); //Push raw pointer to the inventory
+				return;
+			}
+			//Range of KeyItems
+			if (itemType >= 3 && itemType <= 5) {
+				KeyItem* newItem{ new KeyItem {keyItemData[itemType]} };
+				//newItem->setAddress(&newItem); //Save the address in the item for later use
+				std::cout << "Created a " << newItem->getName() << ", adding it to the inventory.\n";
+				m_inventory.push_back(newItem); //Push raw pointer to the inventory
+				return;
+			}
 		}
 	}
 	
