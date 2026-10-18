@@ -20,9 +20,9 @@ public:
 	//Constructor
 	Inventory(std::string_view name, const std::size_t capacity);
 
-	void add(Item* item); //Add something to the inventory (Pass item pointer as is to avoid transfering ownership
+	void add(Item* transferedItem, ItemType itemType, bool transfer); //Add something to the inventory (No need to create a new item if a transfer is occuring)
 
-	Item* remove(const std::size_t slotNumber); //Remove something from the inventory
+	Item* remove(const std::size_t slotNumber, bool transfer); //Remove something from the inventory
 
 	void transfer(const std::size_t slotNumber, Inventory& destination); //Transfer one item to another inventory
 

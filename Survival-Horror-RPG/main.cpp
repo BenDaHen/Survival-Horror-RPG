@@ -7,26 +7,37 @@
 #include "Player.h"
 #include "Item.h"
 #include "Inventory.h"
-#include "ItemData.h"
+//#include "ItemData.h"
+
+//FOR NEXT TIME
+/*
+Items now properly work with dynamically allocated memory and smart pointers. 
+When adding an item, actually add the item that needs to be added instead of a green herb
+When transfering an item, don't dynamically allocate a new item, just move it to the other inventory
+
+Only big issue right now: When adding an item, it needs a variable name so that it's ownership goes to main after being created
+Find a way to keep track of the variable names/automate their creation?
+*/
 
 //Testing
 void testing() {
-	auto test{ std::make_unique<Item>(itemData[green_herb]) };
+	//Items on the stack
+	//Item herb{ itemData[green_herb] };
 
-	auto keyTest{ std::make_unique<KeyItem>(keyItemData[armor_key]) };
+	//KeyItem armorKey{ keyItemData[armor_key] };
 
-	auto weapon{ std::make_unique<Weapon>(weaponData[handgun]) };
+	//Weapon handgunItem{ weaponData[handgun] };
 
-	auto handgunAmmoSmall{ std::make_unique<Ammo>(ammoData[handgun_bullets_small]) };
-	auto handgunAmmoMedium{ std::make_unique<Ammo>(ammoData[handgun_bullets_medium]) };
-	auto handgunAmmoMax{ std::make_unique<Ammo>(ammoData[handgun_bullets_max]) };
-	auto shotgunAmmo{ std::make_unique<Ammo>(ammoData[shotgun_shells]) };
+	//Ammo handgunAmmoSmall{ ammoData[handgun_bullets_small] };
+	//Ammo handgunAmmoMedium{ ammoData[handgun_bullets_medium] };
+	//Ammo handgunAmmoMax{ ammoData[handgun_bullets_max] };
+	//Ammo shotgunAmmo{ ammoData[shotgun_shells] };
 
-	std::cout << "Item Getters: \n\n";
+	//std::cout << "Item Getters: \n\n";
 
-	std::cout << "The " << keyTest->getName() << " is used in " << keyTest->getUseLocation();
+	//std::cout << "The " << armorKey.getName() << " is used in " << armorKey.getUseLocation();
 
-	std::cout << "The " << weapon->getName() << " does " << weapon->getDamage() << " damage";
+	//std::cout << "The " << handgunItem.getName() << " does " << handgunItem.getDamage() << " damage";
 
 	Inventory playerInventory{ "Player's Inventory", 8 };
 
@@ -35,13 +46,16 @@ void testing() {
 	//Test that items can be added to the inventory
 	std::cout << "Adding items to the inventory: \n\n";
 
-	playerInventory.add(test.get());
-	playerInventory.add(test.get());
-	playerInventory.add(test.get());
-	playerInventory.add(keyTest.get());
-	playerInventory.add(handgunAmmoSmall.get());
-	playerInventory.add(weapon.get());
-	playerInventory.add(handgunAmmoSmall.get());
+	playerInventory.add({}, green_herb, false); //Create a new Herb
+	playerInventory.add({}, green_herb, false); //Create a new Herb
+	playerInventory.add({}, green_herb, false); //Create a new Herb
+	playerInventory.add({}, green_herb, false); //Create a new Herb
+	playerInventory.add({}, red_herb, false);
+	playerInventory.add({}, blue_herb, false);
+	//auto item4{ playerInventory.add(keyTest.get()) };
+	//auto item5{ playerInventory.add(handgunAmmoSmall.get()) };
+	//auto item6{ playerInventory.add(weapon.get()) };
+	//auto item7{ playerInventory.add(handgunAmmoSmall.get()) };
 	//playerInventory.add(handgunAmmoMax);
 
 	std::cout << "Printing the inventory: \n\n";
@@ -52,7 +66,7 @@ void testing() {
 
 	std::cout << "Removing an item from the inventory: \n\n";
 
-	playerInventory.remove(2);
+	playerInventory.remove(2, false);
 
 	playerInventory.printInventory();
 
@@ -66,26 +80,26 @@ void testing() {
 	playerInventory.printInventory();
 	itemBox.printInventory();
 
-	std::cout << "Stacking items in an inventory: \n\n";
+	/*std::cout << "Stacking items in an inventory: \n\n";
 
 	playerInventory.stackItems();
 	playerInventory.printInventory();
 
 	playerInventory.stackItems();
-	playerInventory.printInventory();
+	playerInventory.printInventory();*/
 
 	//No more stacking possible here
-	playerInventory.stackItems();
+	/*playerInventory.stackItems();*/
 
-	itemBox.add(shotgunAmmo.get());
-	itemBox.add(shotgunAmmo.get());
-	itemBox.add(shotgunAmmo.get());
+	/*auto item8{ itemBox.add(shotgunAmmo.get()) };
+	auto item9{ itemBox.add(shotgunAmmo.get()) };
+	auto item10{ itemBox.add(shotgunAmmo.get()) };*/
 
-	itemBox.printInventory();
+	/*itemBox.printInventory();
 
 	itemBox.stackItems();
 
-	itemBox.printInventory();
+	itemBox.printInventory();*/
 }//testing
 
 void titleScreen() {

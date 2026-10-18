@@ -9,28 +9,39 @@ Inventory::Inventory(std::string_view name, const std::size_t capacity) :
 	m_inventory.reserve(capacity);
 }
 
-void Inventory::add(Item* item) {
+void Inventory::add(Item* transferedItem, ItemType itemType, bool transfer) { //Pass in an item pointer for transfer, or a type to create something
 	//Ensure that length stays within capacity
 	if (m_inventory.size() < m_inventory.capacity()) {
-		//Dynamically allocate a new item
-		/*auto newItem{ std::make_unique<Item>(itemData[green_herb])};*/
-		std::cout << "Adding a " << item->getName() << " to the inventory.\n";
-		m_inventory.push_back(item); //Push raw pointer to the inventory
-		return;
+		//Transfer an item from another inventory
+		if (transfer) {
+			m_inventory.push_back(transferedItem); //Send the item as is
+			return;
+		}
+		//Create a new item
+		else {
+			//Dynamically allocate a new item
+			auto* newItem{ new Item {itemData[itemType]} };
+			newItem->setAddress(&newItem); //Save the address in the item for later use
+			std::cout << "Created a " << newItem->getName() << ", adding it to the inventory.\n";
+			m_inventory.push_back(newItem); //Push raw pointer to the inventory
+			return;
+		}
 	}
 	
 	//Inventory full
 	std::cout << "The inventory is full. Could not add an item.\n";
-}
 
-Item* Inventory::remove(const std::size_t slotNumber) {
+	//Let the dynamically allocated item go out of scope, it's location is known in the inventory, and the address has been saved
+}//Inventory::add
+
+Item* Inventory::remove(const std::size_t slotNumber, bool transfer) {
 	//Ensure that the given slot has an item
 	if (slotNumber >= 1 && slotNumber <= m_inventory.size()) {
 		std::size_t index{ slotNumber - 1 };
 
 		std::cout << "Removing the item at slot #" << slotNumber << " (" << m_inventory[index]->getName() << ")\n";
 
-		Item* removed{ std::move(m_inventory[index]) }; //Pointer to the removed item (not new memory
+		Item* removed{ std::move(m_inventory[index]) }; //Pointer to the removed item (not new memory)
 
 		//Move everything back in the inventory by 1 starting at the item to be removed (Squish)
 		for (std::size_t i{ index }; i < m_inventory.size() - 1; ++i) {
@@ -43,24 +54,28 @@ Item* Inventory::remove(const std::size_t slotNumber) {
 		std::cout << "The removed Item: ";
 		removed->printItem();
 
-		//Return the item that was removed in the event of a transfer
-		return removed;
+		//In the event of a transfer, return the item that was removed so it can be added to the other inventory
+		if (transfer) {
+			return removed;
+		}
+		
+		//Otherwise delete the item that was removed
+		delete removed;
+		removed = nullptr;
 	}	
 
-	//Return empty item if failed
+	//Return empty item pointer if failed or no transfer
 	Item* ptr{};
 	return ptr;
-
-	//Removed item is destroyed at the end of this function
 }//Inventory::remove
 
 //Initiate a transfer by removing frome one inventory and adding the removed item to another inventory
 void Inventory::transfer(const std::size_t slotNumber, Inventory& destination) {
-	Item* toTransfer{ std::move(remove(slotNumber)) };
+	Item* toTransfer{ std::move(remove(slotNumber, true)) };
 
 	std::cout << "Transfering the " << toTransfer->getName() << " from " << m_name << " to " << destination.getName() << '\n';
 
-	destination.add(toTransfer);
+	destination.add(toTransfer, {}, true); //Pass an item for transfering (not creating a new item)
 }//Inventory::transfer
 
 //Print out the inventory

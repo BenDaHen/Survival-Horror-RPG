@@ -9,6 +9,7 @@
 //Item class
 class Item {
 protected:
+	Item** m_address{}; //Address of item pointers so they can be properly deleted after being removed from the inventory
 	std::string m_name{}; //All items have a name
 	bool m_stackable{}; //Is the item stackable in the inventory
 
@@ -22,8 +23,12 @@ public:
 	//Constructor
 	Item(const std::string_view name, const bool stackable);
 
+	//Getters
 	std::string_view getName() const { return m_name; } 
 	bool isStackable() const { return m_stackable; }
+
+	//Setters
+	void setAddress(Item** address) { m_address = address; }
 
 	//Overload printing for the inventory
 	virtual void printItem() const;
