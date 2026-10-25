@@ -6,18 +6,8 @@
 #include "loadGame.h"
 #include "Player.h"
 #include "Item.h"
-#include "Inventory.h"
-//#include "ItemData.h"
-
-//FOR NEXT TIME
-/*
-Items now properly work with dynamically allocated memory and smart pointers. 
-When adding an item, actually add the item that needs to be added instead of a green herb
-When transfering an item, don't dynamically allocate a new item, just move it to the other inventory
-
-Only big issue right now: When adding an item, it needs a variable name so that it's ownership goes to main after being created
-Find a way to keep track of the variable names/automate their creation?
-*/
+#include "Inventory.h" //Item data is included with the inventory
+#include "gameFlow.h"
 
 //Testing
 void testing() {
@@ -97,6 +87,7 @@ void testing() {
 	itemBox.printInventory();
 
 	itemBox.stackItems();
+	itemBox.stackItems();
 
 	itemBox.printInventory();
 }//testing
@@ -113,16 +104,12 @@ void titleScreen() {
 
 	if (choice == 1) {
 		newGame();
+		gameFlow();
 	}
 	else if (choice == 2) {
 		loadGame();
 	}
-
-	//Create a player
-	Player player{ "Chris", 50, 50, 100, 5, 0, 150 };
-
-	std::cout << "Welcome to the game " << player.getName();
-}
+}//titleScreen
 
 int main() {
 //Testing Block for Debugging
@@ -132,6 +119,7 @@ int main() {
 #endif
 
 	std::cout << "Main here";
+	titleScreen();
 
 	return 0;
 }

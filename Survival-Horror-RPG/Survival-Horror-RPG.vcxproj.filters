@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Items">
+      <UniqueIdentifier>{984ee6be-0466-4bb7-b675-dd9985b789b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{923ab97c-512b-4fd5-a4f9-6dbc55b2d229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Flow">
+      <UniqueIdentifier>{c412a8f1-16b2-4c41-a1f9-d7fd8c7dfead}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,25 +42,40 @@
     <ClCompile Include="Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ItemData.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="gameFlow.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="newGame.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="loadGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="EnemyData.h">
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="loadGame.h">
+      <Filter>Header Files\Game Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="newGame.h">
+      <Filter>Header Files\Game Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Game Flow</Filter>
     </ClInclude>
     <ClInclude Include="Inventory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="gameFlow.h">
+      <Filter>Header Files\Game Flow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -194,6 +194,10 @@ void Inventory::stackItems() {
 		//Remove the last item in the inventory (it is an extra copy), decrement length
 		m_inventory.resize(m_inventory.size() - 1);
 
+		//Properly delete the sending item (not in the inventory anymore)
+		delete sendingItem;
+		sendingItem = nullptr;
+
 		return;
 	}
 	//If there is space to stack some of the ammo
@@ -206,7 +210,4 @@ void Inventory::stackItems() {
 
 		return;
 	}
-
-	//No stacking possible
-	std::cout << "No stacking possible.\n";
 }//Inventory::stackItems

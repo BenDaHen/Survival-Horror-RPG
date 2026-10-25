@@ -1,3 +1,6 @@
+#ifndef ITEMDATA_H
+#define ITEMDATA_H
+
 #include "Item.h"
 
 enum ItemType {
@@ -27,29 +30,31 @@ enum ItemType {
 	max_items, //15
 };
 
-	static inline Item itemData[]{
-		Item{"Green Herb", false},
-		Item{"Red Herb", false},
-		Item{"Blue Herb", false}
-	};
+static inline Item itemData[]{
+	Item{"Green Herb", false},
+	Item{"Red Herb", false},
+	Item{"Blue Herb", false}
+};
 
-	static inline KeyItem keyItemData[]{
-		KeyItem{"Armor Key", "Room 1"},
-		KeyItem{"Helmet Key", "Room 2"},
-		KeyItem{"Some Key", "Room 3"}
-	};
+static inline KeyItem keyItemData[]{
+	KeyItem{"Armor Key", "Room 1"},
+	KeyItem{"Helmet Key", "Room 2"},
+	KeyItem{"Some Key", "Room 3"}
+};
 
-	static inline Weapon weaponData[]{
-		Weapon{"Handgun", 10, 10, 10},
-		Weapon{"Shotgun", 5, 5, 50},
-		Weapon{"Grenade Launcher", 10, 10, 40}
-	};
+static inline Weapon weaponData[]{
+	Weapon{"Handgun", 10, 10, 10},
+	Weapon{"Shotgun", 5, 5, 50},
+	Weapon{"Grenade Launcher", 10, 10, 40}
+};
 
-	static inline Ammo ammoData[]{
-		Ammo{"Handgun Bullets", 5, 60, {"Handgun"}},
-		Ammo{"Handgun Bullets", 15, 60, {"Handgun"}},
-		Ammo{"Handgun Bullets", 60, 60, {"Handgun"}},
-		Ammo{"Shotgun Shells", 5, 30, {"Shotgun"}},
-		Ammo{"Flame Rounds", 3, 15, {"Grenade Launcher"}},
-		Ammo{"Acid Rounds", 3, 15, {"Grenade Launcher"}},
-	};
+static inline Ammo ammoData[]{
+	Ammo{"Handgun Bullets", 5, 60, {"Handgun"}},
+	Ammo{"Handgun Bullets", 15, 60, {"Handgun"}},
+	Ammo{"Handgun Bullets", 60, 60, {"Handgun"}},
+	Ammo{"Shotgun Shells", 5, 30, {"Shotgun"}},
+	Ammo{"Flame Rounds", 3, 15, {"Grenade Launcher"}},
+	Ammo{"Acid Rounds", 3, 15, {"Grenade Launcher"}},
+};
+
+#endif
