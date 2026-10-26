@@ -77,5 +77,8 @@
     <ClInclude Include="gameFlow.h">
       <Filter>Header Files\Game Flow</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Game Flow</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

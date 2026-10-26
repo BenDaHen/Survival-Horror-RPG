@@ -108,6 +108,7 @@ void titleScreen() {
 	}
 	else if (choice == 2) {
 		loadGame();
+		gameFlow();
 	}
 }//titleScreen
 
@@ -119,7 +120,8 @@ int main() {
 #endif
 
 	std::cout << "Main here";
-	titleScreen();
+	gameFlow();
+	//titleScreen(); //Skip title screen
 
 	return 0;
 }

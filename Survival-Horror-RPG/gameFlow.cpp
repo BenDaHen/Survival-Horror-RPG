@@ -1,10 +1,5 @@
 //Game Flow
-
 #include "gameFlow.h"
-#include "Player.h"
-#include "Inventory.h"
-#include "Enemy.h"
-#include "EnemyData.h"
 
 void createEnemy(std::vector<Enemy*>& enemyVector) {
 	Enemy* newEnemy{ new Enemy{enemyData[zombie]} }; //Dynamically allocate an enemy on the stack
@@ -13,13 +8,14 @@ void createEnemy(std::vector<Enemy*>& enemyVector) {
 
 void printBattleUI() {
 	std::cout << "--------------------\n";
-	std::cout << "ATTACK\nITEM\nRUN\n";
+	std::cout << "(1) ATTACK\n(2) ITEM\n(3) RUN\n";
 	std::cout << "--------------------\n";
 }//printBattleUI
 
 void enterBattle() {
 	std::cout << "You are now in a battle!\n";
 
+	//Create a vector to hold the dynamically allocated enemies
 	std::vector<Enemy*> enemyvector{};
 	createEnemy(enemyvector);
 	createEnemy(enemyvector);
@@ -28,15 +24,49 @@ void enterBattle() {
 		std::cout << "A " << enemy->getName() << " appears!\n";
 	}
 
-	std::cout << "What will you do?\n";
+	//Main battle loop
+	while (true) {
+		std::cout << "What will you do?\n";
 
-	printBattleUI();
+		printBattleUI();
 
-	//Get the player's choice here and do what needs to be done
+		int choice{};
+
+		//Input validation
+		while (choice != 1 && choice != 2 && choice != 3) {
+			choice = getInput<int>();
+			
+			std::cout << "You have chosen " << choice << '\n';
+
+			if (choice != 1 && choice != 2 && choice != 3) {
+				std::cout << "Invalid input.\n";
+			}
+		}
+
+		std::cout << "Input validated.\n";
+
+		//Player Action
+		switch (choice) {
+		//ATTACK
+		case(1): 
+			std::cout << "You are attacking.\n"; 
+			break; 
+		//ITEM
+		case(2): 
+			std::cout << "You are using an item.\n"; 
+			break;
+		//RUN
+		case(3): 
+			std::cout << "You are running.\n"; 
+			break;
+		}
+
+	}
 
 	//Free memory
 	for (auto enemy : enemyvector) {
 		delete enemy;
+		enemy = nullptr;
 	}
 }//enterBattle
 

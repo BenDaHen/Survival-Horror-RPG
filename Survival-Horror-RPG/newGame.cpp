@@ -20,7 +20,7 @@ void newGame() {
 	//Create the .json format
 	json j{ 
 		{
-			{"test", 67}
+			{"Freddy Fartbear", 67}
 		} 
 	};
 
