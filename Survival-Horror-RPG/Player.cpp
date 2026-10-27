@@ -22,4 +22,4 @@ void Player::levelUp() {
 
 	m_maxHealth += 10;
 	m_currentHealth = m_maxHealth;
-}
+}//Player::levelUp

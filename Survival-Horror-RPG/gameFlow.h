@@ -11,7 +11,8 @@
 
 void createEnemy(std::vector<Enemy*>& enemyVector);
 void printBattleUI();
-void enterBattle();
+void playerAttack(Player& player, Inventory& inventory);
+void enterBattle(Player& player, Inventory& inventory);
 void gameFlow();
 
 #endif

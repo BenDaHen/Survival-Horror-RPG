@@ -25,4 +25,10 @@ void Enemy::takeDamage(int damage) {
 
 void Enemy::takeTurn() {
 	--m_turnValue;
+	std::cout << "The " << m_name << " is now " << m_turnValue << " turns away!\n";
+
+	//Enemy attacks
+	if (m_turnValue <= 0) {
+		m_turnValue = 3;
+	}
 }
